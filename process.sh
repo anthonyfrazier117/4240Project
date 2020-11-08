@@ -9,7 +9,16 @@ echo Hello World!
 
 ps -eo pid,etime > time.txt
 
-grep -oh "\w*:\w*" time.txt
+#grep -oh "\w*:\w*" time.txt |
+
+input="time.txt"
+while IFS= read -r line
+do
+   #echo "$line"
+   y=$(echo $line | awk '{print $2}')
+   echo $y
+
+done < "$input"
 
 #ps -A
 
