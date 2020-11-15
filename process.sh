@@ -7,16 +7,25 @@ echo Hello World!
 #ps -o etimes
 #ps axjf
 
-ps -eo pid,etime > time.txt
-
 #grep -oh "\w*:\w*" time.txt |
+
+ps -eo pid,etime > time.txt
 
 input="time.txt"
 while IFS= read -r line
 do
    #echo "$line"
    y=$(echo $line | awk '{print $2}')
-   echo $y
+    #echo $y
+    x=(${y//:/})
+    #echo $x
+   #echo $1
+   if [ $x -gt 2000 ]
+   then
+	echo $y
+   fi
+   #echo $y
+
 
 done < "$input"
 
