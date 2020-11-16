@@ -2,6 +2,7 @@
  # A simple Bash script
 
 echo Hello World!
+
 testing=$(head -n 1 config.txt)
 echo "$testing"
 
@@ -14,7 +15,7 @@ typeset -i timeLimit=${a[0]}
 fileLogging=${a[1]}
 outputfile=${a[2]}
 
-ps -eo pid,etime > $outputfile
+ps -eo pid,etime,%mem > $outputfile
 
 
 input=$outputfile
