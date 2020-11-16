@@ -1,38 +1,40 @@
- #!/bin/bash
- # A sample Bash script, by Ryan
+ #!/usr/bin/env bash
+ # A simple Bash script
 
 echo Hello World!
+testing=$(head -n 1 config.txt)
+echo "$testing"
 
-#ps -aux | less
-#ps -o etimes
-#ps axjf
+a=( $testing )
+echo ${a[0]}
+echo ${a[1]}
+echo ${a[2]}
 
-#grep -oh "\w*:\w*" time.txt |
+typeset -i timeLimit=${a[0]}
+fileLogging=${a[1]}
+outputfile=${a[2]}
 
-ps -eo pid,etime > time.txt
+ps -eo pid,etime > $outputfile
 
-input="time.txt"
+
+input=$outputfile
 while IFS= read -r line
 do
-   #echo "$line"
    y=$(echo $line | awk '{print $2}')
-    #echo $y
     x=(${y//:/})
-    #echo $x
-   #echo $1
-   if [ $x -gt 2000 ]
+   if [ "$x" -gt "$timeLimit" ]
    then
-	echo $y
+	if [ "$fileLogging" == "yes" ]
+	then
+	    echo $line >> log_file.txt
+	else
+	    echo $line
+	fi
    fi
    #echo $y
 
-
 done < "$input"
 
-#ps -A
-
-#x=$(ps -e | wc -l)
-
-#echo "${x}"
-
-#ps -o etimes= -p "$$"
+echo $testing
+echo $timeLimit
+echo $fileLogging
