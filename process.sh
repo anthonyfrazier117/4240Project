@@ -12,11 +12,14 @@ fileLogging=${a[1]}
 outputfile=${a[2]}
 cpuLimit=${a[3]}
 
-ps -eo pid,etime,%mem > $outputfile
+ps -eo pid,etime,%mem,user,cmd,lstart > $outputfile
 
 
 maxCpuProcess="0."
 CpuMaxLine=""
+
+now=$(date)
+echo "Ran at: $now" >> log_file.txt
 
 input=$outputfile
 while IFS= read -r line
@@ -39,7 +42,6 @@ do
 	fi
    fi
    #echo $y
-
 done < "$input"
 
 echo "You're biggest cpu usage was:"
